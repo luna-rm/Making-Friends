@@ -2,6 +2,7 @@ using Ink.Parsed;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TextScript : MonoBehaviour {
@@ -15,8 +16,10 @@ public class TextScript : MonoBehaviour {
     private int charCount = 0;
     
 
-    [SerializeField] private List<AudioClip> voice;
+    [SerializeField] public List<AudioClip> voice;
     private int voiceCount = 0;
+
+    public bool isDialogue = true;
 
     private void Awake() {
         dialogueText.enabled = false;
@@ -24,17 +27,21 @@ public class TextScript : MonoBehaviour {
     }
 
     private void OnEnable() {
-        GameEventManager.instance.dialogueEvents.onDialogueStarted += DialogueStarted;
-        GameEventManager.instance.dialogueEvents.onDialogueFinished += DialogueFinished;
-        GameEventManager.instance.dialogueEvents.onDisplayDialogue += DisplayDialogue;
-        GameEventManager.instance.dialogueEvents.onSkipTyping += CompleteSentence;
+        if (isDialogue) {
+            GameEventManager.instance.dialogueEvents.onDialogueStarted += DialogueStarted;
+            GameEventManager.instance.dialogueEvents.onDialogueFinished += DialogueFinished;
+            GameEventManager.instance.dialogueEvents.onDisplayDialogue += DisplayDialogue;
+            GameEventManager.instance.dialogueEvents.onSkipTyping += CompleteSentence;
+        }
     }
 
     private void OnDisable() {
-        GameEventManager.instance.dialogueEvents.onDialogueStarted -= DialogueStarted;
-        GameEventManager.instance.dialogueEvents.onDialogueFinished -= DialogueFinished;
-        GameEventManager.instance.dialogueEvents.onDisplayDialogue -= DisplayDialogue;
-        GameEventManager.instance.dialogueEvents.onSkipTyping -= CompleteSentence;
+        if(isDialogue) {
+            GameEventManager.instance.dialogueEvents.onDialogueStarted -= DialogueStarted;
+            GameEventManager.instance.dialogueEvents.onDialogueFinished -= DialogueFinished;
+            GameEventManager.instance.dialogueEvents.onDisplayDialogue -= DisplayDialogue;
+            GameEventManager.instance.dialogueEvents.onSkipTyping -= CompleteSentence;
+        }
     }
 
     private void DialogueStarted() {
@@ -51,6 +58,11 @@ public class TextScript : MonoBehaviour {
         if (typingCoroutine != null) {
             StopCoroutine(typingCoroutine);
         }
+        typingCoroutine = StartCoroutine(TypeSentence());
+    }
+
+    public void DisplayText(string textLine) {
+        currentSentence = textLine;
         typingCoroutine = StartCoroutine(TypeSentence());
     }
 
@@ -95,8 +107,8 @@ public class TextScript : MonoBehaviour {
                     auxDialogueText += letter;
                     enterCount++;
                 }
-                Debug.Log(auxDialogueText);
             }
+            dialogueText.text = auxDialogueText;
             PlayVoice();
         }
     }

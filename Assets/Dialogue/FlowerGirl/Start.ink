@@ -2,8 +2,8 @@ VAR triggerNo = false
 
 ===fawake===
 Oi!
-Oi!
 Oii!
+Oiee!
 ACORDAA
 -> DONE
 

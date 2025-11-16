@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: stylized_water
+  m_Name: stylized_water_fast
   m_Shader: {fileID: -6465566751694194690, guid: e7d81c158fab8574abb0d0a7eef0c4bb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _FoamCullOff
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -51,23 +51,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.2
-    - _FoamAmount: 0.04
-    - _FoamCullOff: 1
+    - _Amplitude: 0.16
+    - _FoamAmount: 0.01
+    - _FoamCullOff: 0
     - _FoamPixel: 32
-    - _FoamScale: 91
-    - _FoamSpeed: 0.27
+    - _FoamScale: 2
+    - _FoamSpeed: 0.28
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RefScale: 100
-    - _RefSpeed: 100
-    - _RefStrength: 100
-    - _Scale: 0.2
-    - _Speed: 0.1
+    - _RefScale: 1
+    - _RefSpeed: 1
+    - _RefStrength: 1
+    - _Scale: 0.79
+    - _Speed: 0.07
     - _WaterDepth: 10
     m_Colors:
-    - _ColorDepth: {r: 0.39065436, g: 0.387362, b: 0.5849056, a: 1}
-    - _ColorSurface: {r: 0.10791717, g: 0, b: 0.5245282, a: 1}
+    - _ColorDepth: {r: 0.12495713, g: 0, b: 0.5849056, a: 1}
+    - _ColorSurface: {r: 0.18457577, g: 0, b: 0.86415094, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

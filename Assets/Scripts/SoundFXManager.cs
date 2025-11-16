@@ -33,6 +33,17 @@ public class SoundFXManager : MonoBehaviour {
         Destroy(audioSource.gameObject, clipLength);
     }
 
+    public void PlaySoundFXClipPitch(AudioClip audioClip, Transform spawnTransform, float volume, Vector2 pit) {
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        audioSource.clip = audioClip;
+        audioSource.volume = volume;
+        audioSource.pitch = Random.Range(pit.x, pit.y);
+        audioSource.Play();
+
+        float clipLength = audioSource.clip.length;
+        Destroy(audioSource.gameObject, clipLength);
+    }
+
     private void Update() {
         if (anxietyScript.anxiety >= 0f && anxietyScript.anxiety < 0.25f && anxietyLevel != 0) {
             heartBeatObject.Stop();
