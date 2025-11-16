@@ -51,7 +51,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.16
+    - _Amplitude: 0
     - _FoamAmount: 0.01
     - _FoamCullOff: 0
     - _FoamPixel: 32
@@ -62,8 +62,8 @@ Material:
     - _RefScale: 1
     - _RefSpeed: 1
     - _RefStrength: 1
-    - _Scale: 0.79
-    - _Speed: 0.07
+    - _Scale: 0
+    - _Speed: 0
     - _WaterDepth: 10
     m_Colors:
     - _ColorDepth: {r: 0.12495713, g: 0, b: 0.5849056, a: 1}
