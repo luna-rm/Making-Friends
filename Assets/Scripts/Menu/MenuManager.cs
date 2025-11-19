@@ -48,11 +48,11 @@ public class MenuManager : MonoBehaviour {
 
     private void changePosSelection() {
         if(option == 0){
-            selector.anchoredPosition = new Vector2(-182f, -14f);
+            selector.anchoredPosition = new Vector2(-115f, -0f);
         } else if(option == 1){
-            selector.anchoredPosition = new Vector2(-182f, -79f);
+            selector.anchoredPosition = new Vector2(-115f, -80f);
         } else if(option == 2){
-            selector.anchoredPosition = new Vector2(-182f, -144f);
+            selector.anchoredPosition = new Vector2(-115f, -160f);
         }
     }
 
