@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlowerMaze : MonoBehaviour {
+public class FlowerMaze : MazeCell {
 
     [SerializeField] private GameObject leftWall;
     [SerializeField] private GameObject rightWall;
@@ -8,30 +8,38 @@ public class FlowerMaze : MonoBehaviour {
     [SerializeField] private GameObject backWall;
 
     [SerializeField] private GameObject floor;
+    [SerializeField] private GameObject exit;
 
-    private GameObject unvisitedBlock;
-
-    public bool isVisited {  get; private set; } = false;
-
-    public void Visit() {
-        isVisited = true;
-        unvisitedBlock.SetActive(false);
+    public override void Visit() {
+        base.Visit();
+        floor.SetActive(true);
     }
 
-    public void ClearLeftWall() {
+    public override void ClearLeftWall() {
         leftWall.SetActive(false);
     }
 
-    public void ClearRightWall() {
+    public override void ClearRightWall() {
         rightWall.SetActive(false);
     }
 
-    public void ClearFrontWall() {
+    public override void ClearFrontWall() {
         frontWall.SetActive(false);
     }
 
-    public void ClearBackWall() {
+    public override void ClearBackWall() {
         backWall.SetActive(false);
     }
 
+    public override void SetAsExit() {
+        base.SetAsExit(); 
+        floor.SetActive(false);
+        exit.SetActive(true);
+    }
+
+    public override void NotSetAsExit() {
+        base.SetAsExit(); 
+        floor.SetActive(true);
+        exit.SetActive(false);
+    }
 }
