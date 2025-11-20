@@ -5,10 +5,11 @@ public class MazeCell : MonoBehaviour {
     public bool IsExit { get; private set; } = false;
     public bool IsVisited {  get; private set; } = false;
 
+    public Vector2 size = Vector2.one;
+
     public virtual void Visit() {
         IsVisited = true;
         unvisitedBlock.SetActive(false);
-        NotSetAsExit();
     }
 
     public virtual void ClearLeftWall() {
@@ -26,11 +27,9 @@ public class MazeCell : MonoBehaviour {
     public virtual void ClearBackWall() {
 
     }
-    public virtual void SetAsExit() {
-        IsExit = true;
-    }
 
-    public virtual void NotSetAsExit() {
-        IsExit = false;
+    public virtual void SetAsExit()
+    {
+        IsExit = true;
     }
 }

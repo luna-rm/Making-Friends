@@ -633,10 +633,12 @@ MonoBehaviour:
   oceanCell: {fileID: 0}
   farmCell: {fileID: 0}
   MazeType: 0
-  mazeWidth: 11
-  mazeDepth: 11
-  startCell: {x: 5, y: 0}
-  endCell: {x: 0, y: 1}
+  mazeWidth: 20
+  mazeDepth: 20
+  startCell: {x: 10, y: 0}
+  endCell: {x: 10, y: 19}
+  position: {x: 5, y: -5, z: 10}
+  noWalls: 50
 --- !u!1 &471128413
 GameObject:
   m_ObjectHideFlags: 0
