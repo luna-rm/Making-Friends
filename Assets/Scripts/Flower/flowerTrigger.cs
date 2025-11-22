@@ -4,12 +4,13 @@ using UnityEngine;
 public class flowerTrigger : MonoBehaviour {
     [SerializeField] private GameObject flower; 
     [SerializeField] private ParticleSystem myParticleSystem;
+    [SerializeField] private float anxietyUp = 0.1f;
 
     private void OnTriggerEnter(Collider other) {
         if(other != null) {
             if(other.gameObject.name == "Player") {
-                Debug.Log("A");
                 myParticleSystem.Emit(8);
+                GameObject.Find("Global Volume").GetComponent<AnxietyScript>().addValue(true, anxietyUp);
                 StartCoroutine(destroyFlower());
             }
         }

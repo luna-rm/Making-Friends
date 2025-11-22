@@ -7,6 +7,21 @@ public class InteractionScript : MonoBehaviour {
 
     private bool enableInteraction = false;
 
+    public bool dialogueFinished = false;
+    private bool isCurrentConversation = false; // Tracks if WE started the dialogue
+
+    private void OnEnable() {
+        // Subscribe to the dialogue finished event
+        GameEventManager.instance.dialogueEvents.onDialogueFinished += OnDialogueFinished;
+    }
+
+    private void OnDisable() {
+        // Always unsubscribe when disabled to prevent errors
+        if (GameEventManager.instance != null) {
+            GameEventManager.instance.dialogueEvents.onDialogueFinished -= OnDialogueFinished;
+        }
+    }
+
     private void OnTriggerEnter(UnityEngine.Collider other) {
         if(other != null) {
             if(other.gameObject.name == "Player") {
@@ -44,8 +59,18 @@ public class InteractionScript : MonoBehaviour {
 
     private void submitPressed() {
         if(dialogue != null) {
+            isCurrentConversation = true; // Mark that WE started this conversation
             GameEventManager.instance.dialogueEvents.EnterDialogue(dialogue);
             GameEventManager.InputContext = InputContextEnum.DIALOGUE;
+        }
+    }
+
+    private void OnDialogueFinished() {
+        // Only mark as finished if we were the ones who started it
+        if(isCurrentConversation) {
+            dialogueFinished = true;
+            isCurrentConversation = false;
+            Debug.Log("B");
         }
     }
 }

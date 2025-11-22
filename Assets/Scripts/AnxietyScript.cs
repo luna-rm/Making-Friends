@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -68,5 +69,31 @@ public class AnxietyScript : MonoBehaviour {
         } else {
             vignette.intensity.value = 0.15f;
         }
+    }
+
+    public void addValue(bool anim, float add) {
+        if (anim) {
+            StartCoroutine(addValueAnim(add));
+        } else {
+            anxiety += add;
+        }
+    }
+
+    public IEnumerator addValueAnim(float add) {
+        float value = anxiety + add;
+        Debug.Log(value);
+        anxiety = 0.8f;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 2f) {
+            float newValue = Mathf.Lerp(0.8f, value, (elapsedTime / 2f));
+            anxiety = newValue;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        anxiety = value;
     }
 }
