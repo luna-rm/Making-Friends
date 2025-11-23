@@ -15,6 +15,7 @@ Lembra que dia é hoje??
 ~ triggerNo = true
 Hoje vamos fazer AMIGOSS!!
 Vamos ver se você lembra como se faz!!
+Olha pra trás!!
 
 -> DONE
 

@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -15,6 +17,7 @@ public class SoundFXManager : MonoBehaviour {
     [SerializeField] private AudioClip heartBeat1;
     [SerializeField] private AudioClip heartBeat2;
     [SerializeField] private AudioClip heartBeat3;
+
     private int anxietyLevel = 0;
 
     private void Awake() {
@@ -26,7 +29,7 @@ public class SoundFXManager : MonoBehaviour {
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume) {
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
         audioSource.clip = audioClip;
-        audioSource.volume = volume;
+        audioSource.volume = volume/4;
         audioSource.Play();
 
         float clipLength = audioSource.clip.length;
@@ -36,8 +39,8 @@ public class SoundFXManager : MonoBehaviour {
     public void PlaySoundFXClipPitch(AudioClip audioClip, Transform spawnTransform, float volume, Vector2 pit) {
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
         audioSource.clip = audioClip;
-        audioSource.volume = volume;
-        audioSource.pitch = Random.Range(pit.x, pit.y);
+        audioSource.volume = volume/4;
+        audioSource.pitch = UnityEngine.Random.Range(pit.x, pit.y);
         audioSource.Play();
 
         float clipLength = audioSource.clip.length;
@@ -63,6 +66,6 @@ public class SoundFXManager : MonoBehaviour {
             heartBeatObject.volume = anxietyScript.anxiety * 0.5f;
             heartBeatObject.Play();
             anxietyLevel = 3;
-        }
+        }        
     }
 }

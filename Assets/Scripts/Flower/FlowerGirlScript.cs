@@ -4,63 +4,113 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class FlowerGirlScript : MonoBehaviour {
-    [SerializeField] InteractionScript InteractionScript;
     [SerializeField] GameObject Player;
-    [SerializeField] ImageScript imageScript;
     [SerializeField] GameObject maze;
 
-    [SerializeField] int whichFlower = 0;
+    [SerializeField] GameObject flower0;
+    [SerializeField] GameObject flower1;
 
     private bool anim0Start = false;
 
+    private InteractionScript flower0Interaction;
+    private InteractionScript flower1Interaction;
+
+    private ImageScript flower0Image;
+    private ImageScript flower1Image;
+
+    [SerializeField] private TextScript flower0Text;
+    [SerializeField] private TextScript flower1Text;
+
+    [SerializeField] GameObject Wall0;
+
+    [SerializeField] GameObject textObj;
+
+    private void Awake() {
+        flower0Interaction = flower0.GetComponent<InteractionScript>();
+        flower1Interaction = flower1.GetComponent<InteractionScript>();
+
+        flower0Image = flower0.GetComponent<ImageScript>();
+        flower1Image = flower1.GetComponent<ImageScript>();
+    }
+
     private void Update() {
-        if(InteractionScript.dialogueFinished && whichFlower == 0 && !anim0Start) {
+        if(flower0Interaction.dialogueFinished && !anim0Start) {
             StartCoroutine(anim0());
             anim0Start = true;
         }
     }
 
     private IEnumerator anim0() {
+        //GameEventManager.InputContext = InputContextEnum.LOCKED;
+        //float elapsedTime = 0f;
+        
+       // Quaternion startRotation = Player.transform.rotation;
+
+       // Vector3 directionToTarget = flower0.transform.position - Player.transform.position;
+        //directionToTarget.y = 0;
+        //Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
+
+        //while (elapsedTime < 0.5f) {
+        //    float t = elapsedTime / 0.5f;
+
+        //    Player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+
+        //    elapsedTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        //Player.transform.rotation = endRotation;
+
+        StartCoroutine(flower0Image.disappear());
+        yield return new WaitForSeconds(flower0Image.animTime + 0.2f);
+
+        StartCoroutine(anim1());
+
+        //elapsedTime = 0f;
+        
+        //startRotation = Player.transform.rotation;
+
+        //directionToTarget = flower1.transform.position - Player.transform.position;
+        //directionToTarget.y = 0;
+        //endRotation = Quaternion.LookRotation(directionToTarget);
+
+        //while (elapsedTime < 1f) {
+        //    float t = elapsedTime / 1f;
+
+        //    Player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+
+        //    elapsedTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        //Player.transform.rotation = endRotation;
+        flower0Text.enabled = false;
+
+        Destroy(flower0);
+    }
+
+    private IEnumerator anim1() {
+        flower1.SetActive (true);
         float elapsedTime = 0f;
-        
-        Quaternion startRotation = Player.transform.rotation;
 
-        Vector3 directionToTarget = this.transform.position - Player.transform.position;
-        directionToTarget.y = 0;
-        Quaternion endRotation = Quaternion.LookRotation(directionToTarget);
-
-        while (elapsedTime < 0.5f) {
-            float t = elapsedTime / 0.5f;
-
-            Player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
+        while (elapsedTime < 2f) {
+            float newY = Mathf.Lerp(-5f, 0.5f, (elapsedTime / 2f));
+            maze.transform.position = new Vector3(maze.transform.position.x, newY, maze.transform.position.z);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        Player.transform.rotation = endRotation;
+        maze.transform.position = new Vector3(maze.transform.position.x, 0.5f, maze.transform.position.z);
 
-        StartCoroutine(imageScript.disapear());
-        yield return new WaitForSeconds(imageScript.animTime + 0.2f);
+        StartCoroutine(flower1Image.appear());
+        yield return new WaitForSeconds(flower0Image.animTime);
+        flower1Interaction.enabled = true;
+        flower1Text.enabled = true;
 
-        elapsedTime = 0f;
-        
-        startRotation = Player.transform.rotation;
+        Wall0.SetActive(false);
 
-        directionToTarget = maze.transform.position - Player.transform.position;
-        directionToTarget.y = 0;
-        endRotation = Quaternion.LookRotation(directionToTarget);
-
-        while (elapsedTime < 0.5f) {
-            float t = elapsedTime / 0.5f;
-
-            Player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, t);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        Player.transform.rotation = endRotation;
+        GameEventManager.InputContext = InputContextEnum.DEFAULT;
     }
 
 }

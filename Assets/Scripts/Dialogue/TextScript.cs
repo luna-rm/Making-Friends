@@ -50,7 +50,13 @@ public class TextScript : MonoBehaviour {
 
     private void DialogueFinished() {
         dialogueText.enabled = false;
+        ResetPanel();
     }
+    public void DisplayText(string textLine) {
+        currentSentence = textLine;
+        typingCoroutine = StartCoroutine(TypeSentence());
+    }
+
 
     private void DisplayDialogue(string dialogueLine) {
         currentSentence = dialogueLine;
@@ -58,11 +64,6 @@ public class TextScript : MonoBehaviour {
         if (typingCoroutine != null) {
             StopCoroutine(typingCoroutine);
         }
-        typingCoroutine = StartCoroutine(TypeSentence());
-    }
-
-    public void DisplayText(string textLine) {
-        currentSentence = textLine;
         typingCoroutine = StartCoroutine(TypeSentence());
     }
 
@@ -91,6 +92,10 @@ public class TextScript : MonoBehaviour {
 
     private void CompleteSentence() {
         if (GameEventManager.instance.dialogueEvents.isTyping) { 
+            if (typingCoroutine != null) {
+                StopCoroutine(typingCoroutine);
+            }
+
             GameEventManager.instance.dialogueEvents.isTyping = false;
 
             int charAux = 0;
