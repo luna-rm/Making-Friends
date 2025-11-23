@@ -19,7 +19,7 @@ public class MazeGenerator : MonoBehaviour {
     [SerializeField] private Vector2Int startCell;
     [SerializeField] private Vector2Int endCell;
 
-    [SerializeField] private Vector3 position = Vector3.zero; 
+    [SerializeField] Vector3 position = Vector3.zero; 
 
     [SerializeField] private int noWalls = 0;
 
@@ -31,9 +31,7 @@ public class MazeGenerator : MonoBehaviour {
         } else if(MazeType == MazeTypeEnum.FARM) {
             cellUse = farmCell;
         }
-    }
 
-    void Start() {
         mazeGrid = new MazeCell[mazeWidth, mazeDepth];
 
         for(int i = 0; i < mazeWidth; i++) {
@@ -57,6 +55,38 @@ public class MazeGenerator : MonoBehaviour {
         disableMoreWalls();
 
         transform.position = position;
+    }
+
+    public void GenerateNewMaze() {
+        if (mazeGrid != null) {
+            foreach (MazeCell cell in mazeGrid) {
+                if (cell != null) {
+                    Destroy(cell.gameObject);
+                }
+            }
+        }
+
+        mazeGrid = new MazeCell[mazeWidth, mazeDepth];
+
+        for(int i = 0; i < mazeWidth; i++) {
+            for(int j = 0; j < mazeDepth; j++) {
+                Vector3 cellLocalPos = new Vector3(i * 4, 0, j * 4);
+                
+                MazeCell newCell = Instantiate(cellUse, transform);
+                newCell.transform.localPosition = cellLocalPos;
+                newCell.transform.localRotation = Quaternion.identity;
+                
+                mazeGrid[i, j] = newCell;
+            }
+        }
+
+        GenerateMaze(null, mazeGrid[startCell.x, startCell.y], startCell.x, startCell.y);
+
+        mazeGrid[endCell.x, endCell.y].SetAsExit();
+        mazeGrid[endCell.x, endCell.y].ClearFrontWall();
+        mazeGrid[startCell.x, startCell.y].ClearBackWall();
+
+        disableMoreWalls();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell, int x, int z) {

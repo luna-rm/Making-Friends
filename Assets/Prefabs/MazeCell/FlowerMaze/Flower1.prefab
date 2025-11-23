@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flower: {fileID: 5186735023776687486}
   myParticleSystem: {fileID: 4954140007963467228}
+  anxietyUp: 0.1
 --- !u!1 &5186735023776687486
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +437,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.7
       minScalar: 5
       maxCurve:
         serializedVersion: 2

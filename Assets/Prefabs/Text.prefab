@@ -196,7 +196,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 3497936435538300122}
   typingSpeed: 0.02
-  voice: []
+  voice:
+  - {fileID: 8300000, guid: 407eb134cf9cc884c9deaf1944ea9324, type: 3}
+  - {fileID: 8300000, guid: ae9d9ebdaf6f9b8479fd28ca24e9fac0, type: 3}
+  - {fileID: 8300000, guid: 34f3a5b13e3f664419cfa5eba36a94c9, type: 3}
+  - {fileID: 8300000, guid: ac8af95050727804f93b92acadae6b14, type: 3}
+  - {fileID: 8300000, guid: ca28d8bd295fe7f4fa986b68bc5d4406, type: 3}
+  - {fileID: 8300000, guid: 8e8fb7e1567ae394aa6fe9d8ff6e6527, type: 3}
+  - {fileID: 8300000, guid: 15d3e881d554f674598b651b5065cadd, type: 3}
+  - {fileID: 8300000, guid: 30f27edaad0c9664dacb8eabcdeba14c, type: 3}
+  - {fileID: 8300000, guid: af1c3a7858d42bc4ab1a761fdb522c76, type: 3}
+  - {fileID: 8300000, guid: 4b961f3dd51a1fa46b64201d0edb25d8, type: 3}
+  - {fileID: 8300000, guid: 719e623f87a0bf946b3591e3d2b13571, type: 3}
+  - {fileID: 8300000, guid: e397fcdcaa6a91f4891040dbd5f674c2, type: 3}
   isDialogue: 1
 --- !u!114 &1170232091696727855
 MonoBehaviour:
@@ -210,3 +222,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fcf5be646418f46b486d14f0837d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animTime: 1

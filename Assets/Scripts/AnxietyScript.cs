@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class AnxietyScript : MonoBehaviour {
 
@@ -16,11 +19,18 @@ public class AnxietyScript : MonoBehaviour {
     private UnityEngine.Rendering.Universal.ChromaticAberration chromaticAberration;
     private FilmGrain filmGrain;
 
-    private float valueTo = 0f;
+    public float valueTo = 0f;
 
-    private Coroutine currentAnimCoroutine;
+    public Coroutine currentAnimCoroutine;
 
-    [SerializeField] private AudioSource noiseObject;
+    [SerializeField] private List<string> msg = new List<string>();
+
+    [SerializeField] private Transform cameraTransform; 
+    [SerializeField] private float maxDistance = 7.5f;
+
+    [SerializeField] private GameObject textField;
+
+    public List<GameObject> textLines = new List<GameObject>();
 
     void Start() {
         if (postProcessing.profile.TryGet(out UnityEngine.Rendering.Universal.Vignette vg)) {
@@ -55,8 +65,21 @@ public class AnxietyScript : MonoBehaviour {
             chromaticAberration.intensity.value = anxiety;
         }
 
-        float targetIntensity = Mathf.Lerp(anxiety/8+0.15f, anxiety/8+0.2f, Mathf.PingPong(Time.time * 0.33f, 1));
+        float targetIntensity = Mathf.Lerp(anxiety/8+0.1f + anxiety/10, anxiety/8+0.15f + anxiety/10, Mathf.PingPong(Time.time * 0.33f, 1));
         vignette.intensity.value = targetIntensity;
+
+        if(anxiety >= 1) {
+            GameEventManager.instance.die();
+        }
+
+        if(anxiety == 0f){
+            foreach (GameObject obj in textLines) {
+                if (obj != null) {
+                    Destroy(obj);
+                }
+            }
+            StopAllCoroutines();
+        }
     }
 
     public void addValue(bool anim, float add) {
@@ -76,9 +99,10 @@ public class AnxietyScript : MonoBehaviour {
         valueTo = anxiety + add;
         Debug.Log(valueTo);
         anxiety = 0.99f;
-        noiseObject.volume = 0.1f;
 
         float elapsedTime = 0f;
+
+        StartCoroutine(textAppear());
 
         while (elapsedTime < 2f) {
             elapsedTime += Time.deltaTime;
@@ -91,15 +115,53 @@ public class AnxietyScript : MonoBehaviour {
             float newValue = Mathf.Lerp(0.99f, valueTo, (elapsedTime / 2f));
             anxiety = newValue;
 
-            float noiseSound = Mathf.Lerp(0.1f, 0f, (elapsedTime/2f));
-            noiseObject.volume = noiseSound;
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         anxiety = valueTo;
-        noiseObject.volume = 0f;
-        currentAnimCoroutine = null;
+        currentAnimCoroutine = null;        
+    }
+
+    private IEnumerator textAppear() {
+        int howMany = (int) (valueTo * 10);
+        Debug.Log(howMany);
+        for(int i = 0; i < howMany; i++) {
+            if(anxiety > 0) {
+                awakeTextAppear();
+                yield return new WaitForSeconds(2f/howMany + 0.25f);
+            }
+        }
+    }
+
+    private void awakeTextAppear() {
+        int text = UnityEngine.Random.Range(0, msg.Count);
+
+        RaycastHit hitInfo;
+        Vector3 spawnPosition;
+        Quaternion spawnRotation = Quaternion.identity;
+
+        bool didHit = Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hitInfo, maxDistance);
+
+        if (didHit) {
+            spawnPosition = hitInfo.point;
+            spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal); 
+        }
+        else {
+            spawnPosition = cameraTransform.position + cameraTransform.forward * maxDistance; 
+        }
+
+        spawnPosition.y += (UnityEngine.Random.value) * 3f + 1f;
+        spawnPosition.x += (UnityEngine.Random.value - 0.5f) * 7f;
+        spawnPosition.z += (UnityEngine.Random.value - 0.5f) * 7f;       
+
+        GameObject textObj = Instantiate(textField, spawnPosition, spawnRotation);
+        textObj.GetComponent<TextMeshPro>().enabled = true;
+        textObj.GetComponent<TextMeshPro>().fontSize = 3;
+        textObj.GetComponent<TextScript>().isDialogue = false;
+        textObj.GetComponent<TextScript>().DisplayText(msg[text]);
+
+        textLines.Add(textObj);
+
     }
 }

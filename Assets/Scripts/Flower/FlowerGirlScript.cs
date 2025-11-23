@@ -7,10 +7,10 @@ public class FlowerGirlScript : MonoBehaviour {
     [SerializeField] GameObject Player;
     [SerializeField] GameObject maze;
 
+    private bool anim0Start = false;
+
     [SerializeField] GameObject flower0;
     [SerializeField] GameObject flower1;
-
-    private bool anim0Start = false;
 
     private InteractionScript flower0Interaction;
     private InteractionScript flower1Interaction;
@@ -25,6 +25,10 @@ public class FlowerGirlScript : MonoBehaviour {
 
     [SerializeField] GameObject textObj;
 
+    [SerializeField] GameObject otherSide;
+
+    private bool canStartAnim0 = false;
+
     private void Awake() {
         flower0Interaction = flower0.GetComponent<InteractionScript>();
         flower1Interaction = flower1.GetComponent<InteractionScript>();
@@ -34,9 +38,16 @@ public class FlowerGirlScript : MonoBehaviour {
     }
 
     private void Update() {
-        if(flower0Interaction.dialogueFinished && !anim0Start) {
-            StartCoroutine(anim0());
-            anim0Start = true;
+        if(!anim0Start) {
+            if (flower0Text.GetText() == "Olha pra trás!!") {
+                StartCoroutine(startAnim0());
+                flower0Text.ResetPanel();
+            }
+
+            if(flower0Interaction.dialogueFinished || canStartAnim0) {
+                StartCoroutine(anim0());
+                anim0Start = true;
+            }
         }
     }
 
@@ -85,8 +96,13 @@ public class FlowerGirlScript : MonoBehaviour {
 
         //Player.transform.rotation = endRotation;
         flower0Text.enabled = false;
+        flower0.SetActive(false);
+    }
 
-        Destroy(flower0);
+    private IEnumerator startAnim0() {
+        yield return new WaitForSeconds(0.75f);
+        flower0Text.ResetPanel();
+        canStartAnim0 = true;
     }
 
     private IEnumerator anim1() {
@@ -112,5 +128,4 @@ public class FlowerGirlScript : MonoBehaviour {
 
         GameEventManager.InputContext = InputContextEnum.DEFAULT;
     }
-
 }

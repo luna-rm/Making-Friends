@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1356812341537114590}
   - component: {fileID: -9078993914925605265}
   m_Layer: 8
-  m_Name: TextRigid
+  m_Name: TextRigidSelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2237316318664491636, guid: d8056744c6ad59c43813549ce0b0d671, type: 2}
+  - {fileID: 2904385791029639765, guid: e9d62313c63a22648a59101b04ddad07, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8096439331568753582}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
@@ -106,21 +106,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'lAooAlooAloo
-
-    Aloo
-
-    AlooAloo'
+  m_text: Eujanojwdnonwdao
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8056744c6ad59c43813549ce0b0d671, type: 2}
-  m_sharedMaterial: {fileID: 2237316318664491636, guid: d8056744c6ad59c43813549ce0b0d671, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e9d62313c63a22648a59101b04ddad07, type: 2}
+  m_sharedMaterial: {fileID: 2904385791029639765, guid: e9d62313c63a22648a59101b04ddad07, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -137,8 +133,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 0.1
+  m_fontSizeBase: 0.1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -181,7 +177,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_renderer: {fileID: 7288195365307600240}
   m_maskType: 0
 --- !u!114 &8986810432695986130
@@ -197,19 +193,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 3497936435538300122}
-  typingSpeed: 0.02
+  typingSpeed: 0.05
   voice:
-  - {fileID: 8300000, guid: ae9d9ebdaf6f9b8479fd28ca24e9fac0, type: 3}
-  - {fileID: 8300000, guid: 34f3a5b13e3f664419cfa5eba36a94c9, type: 3}
-  - {fileID: 8300000, guid: ac8af95050727804f93b92acadae6b14, type: 3}
-  - {fileID: 8300000, guid: ca28d8bd295fe7f4fa986b68bc5d4406, type: 3}
-  - {fileID: 8300000, guid: 8e8fb7e1567ae394aa6fe9d8ff6e6527, type: 3}
-  - {fileID: 8300000, guid: 15d3e881d554f674598b651b5065cadd, type: 3}
-  - {fileID: 8300000, guid: 30f27edaad0c9664dacb8eabcdeba14c, type: 3}
-  - {fileID: 8300000, guid: af1c3a7858d42bc4ab1a761fdb522c76, type: 3}
-  - {fileID: 8300000, guid: 4b961f3dd51a1fa46b64201d0edb25d8, type: 3}
-  - {fileID: 8300000, guid: 719e623f87a0bf946b3591e3d2b13571, type: 3}
-  - {fileID: 8300000, guid: e397fcdcaa6a91f4891040dbd5f674c2, type: 3}
+  - {fileID: 8300000, guid: bc23a9c96810a194f80fef1e02b61740, type: 3}
+  - {fileID: 8300000, guid: 185f686a828f19441bca7f32da5e7dcd, type: 3}
+  - {fileID: 8300000, guid: adb568796bc342a47a7dd8393a969449, type: 3}
+  - {fileID: 8300000, guid: 19c6413a878053341809de8d160f40b9, type: 3}
+  - {fileID: 8300000, guid: 8c7871d5b37aafa46b880379890bb47c, type: 3}
+  - {fileID: 8300000, guid: 3eb53d336eb529449a6fec39e49204ec, type: 3}
+  - {fileID: 8300000, guid: 71bb7b0da0bafe84abb2b4ef39c59f4f, type: 3}
+  - {fileID: 8300000, guid: 5e3dea0fe4922154ab27745d279c9ede, type: 3}
   isDialogue: 1
 --- !u!114 &1170232091696727855
 MonoBehaviour:

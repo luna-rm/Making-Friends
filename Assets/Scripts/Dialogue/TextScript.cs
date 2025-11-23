@@ -12,11 +12,9 @@ public class TextScript : MonoBehaviour {
 
     private Coroutine typingCoroutine;
     private string currentSentence;
-    private int enterCount = 0;
-    private int charCount = 0;
-    
+    private int enterCount = 0;    
 
-    [SerializeField] public List<AudioClip> voice;
+    [SerializeField] private List<AudioClip> voice;
     private int voiceCount = 0;
 
     public bool isDialogue = true;
@@ -54,75 +52,88 @@ public class TextScript : MonoBehaviour {
     }
     public void DisplayText(string textLine) {
         currentSentence = textLine;
-        typingCoroutine = StartCoroutine(TypeSentence());
+        typingCoroutine = StartCoroutine(TypeSentence(textLine));
     }
 
 
-    private void DisplayDialogue(string dialogueLine) {
+    public void DisplayDialogue(string dialogueLine) {
         currentSentence = dialogueLine;
-
+        
+        // 1. Stop any existing typing
         if (typingCoroutine != null) {
             StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
         }
-        typingCoroutine = StartCoroutine(TypeSentence());
+        
+        ResetPanel(); 
+        
+        // 2. Start the new typing coroutine
+        typingCoroutine = StartCoroutine(TypeSentence(dialogueLine));
     }
 
-    private IEnumerator TypeSentence() {
-        dialogueText.text = ""; 
-        enterCount = 0;
-        charCount = 0;
+    private IEnumerator TypeSentence(string sentence) {
         GameEventManager.instance.dialogueEvents.isTyping = true;
+        dialogueText.text = "";
+        enterCount = 0;
+        currentSentence = sentence;
 
-        foreach (char letter in currentSentence.ToCharArray()) {
-            if (GameEventManager.instance.dialogueEvents.isTyping) {
-                if(enterCount >= 25 && letter.Equals(' ')) {
-                    dialogueText.text += "\n";
-                    enterCount = 0;
-                } else {
-                    dialogueText.text += letter;
-                    enterCount++;
-                    PlayVoice();
-                    yield return new WaitForSeconds(typingSpeed);
-                }
-                charCount++;
+        foreach (char letter in sentence.ToCharArray()) {
+            if (enterCount >= 25 && letter.Equals(' ')) {
+                dialogueText.text += "\n";
+                enterCount = 0;
+            } else {
+                dialogueText.text += letter;
+                enterCount++;
             }
+
+            PlayVoice();
+            yield return new WaitForSeconds(typingSpeed);
         }
+
+        // Finished naturally
         GameEventManager.instance.dialogueEvents.isTyping = false;
+        typingCoroutine = null;
     }
 
     private void CompleteSentence() {
-        if (GameEventManager.instance.dialogueEvents.isTyping) { 
-            if (typingCoroutine != null) {
-                StopCoroutine(typingCoroutine);
-            }
+        // FIX: We check 'typingCoroutine' specifically for THIS object.
+        // This prevents other idle TextScripts from interfering with the active one.
+        if (typingCoroutine != null) { 
+            
+            // 1. Stop the animation immediately
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
 
+            // 2. Tell the manager we are done
             GameEventManager.instance.dialogueEvents.isTyping = false;
 
-            int charAux = 0;
-            string auxDialogueText = dialogueText.text;
+            // 3. Rebuild the ENTIRE string from scratch instantly.
+            // This guarantees the formatting (\n) is exactly the same as if it typed out.
+            string finalBuiltText = "";
+            int tempEnterCount = 0;
+
             foreach (char letter in currentSentence.ToCharArray()) {
-                if(charCount >= charAux) {
-                    charAux++;
-                    continue;
-                }
-                if(enterCount >= 25 && letter.Equals(' ')) {
-                    auxDialogueText += "\n";
-                    enterCount = 0;
+                if(tempEnterCount >= 25 && letter.Equals(' ')) {
+                    finalBuiltText += "\n";
+                    tempEnterCount = 0;
                 } else {
-                    auxDialogueText += letter;
-                    enterCount++;
+                    finalBuiltText += letter;
+                    tempEnterCount++;
                 }
             }
-            dialogueText.text = auxDialogueText;
+
+            // 4. Update the visual text
+            dialogueText.text = finalBuiltText;
+            
+            // 5. Play sound
             PlayVoice();
         }
     }
 
-    private void ResetPanel() {
+    public void ResetPanel() {
         dialogueText.text =  "";
         currentSentence = "";
         enterCount = 0;
-        charCount = 0;
     }
 
     private void PlayVoice() {
@@ -131,5 +142,9 @@ public class TextScript : MonoBehaviour {
         if(voiceCount >= voice.Count) { 
             voiceCount = 0;
         }
+    }
+
+    public string GetText() {
+        return dialogueText.text;
     }
 }

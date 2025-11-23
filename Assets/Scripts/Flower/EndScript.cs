@@ -1,0 +1,13 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class EndScript : MonoBehaviour {
+    private void OnTriggerEnter(UnityEngine.Collider other) {
+        if(other != null) {
+            if(other.gameObject.name == "Player") {
+                SceneManager.LoadScene("startEnd");
+            }
+        }
+    }
+}

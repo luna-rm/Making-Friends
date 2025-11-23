@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionScript : MonoBehaviour {
 
     [SerializeField] private SpriteRenderer interaction;
-    [SerializeField] private string dialogue;
+    [SerializeField] public string dialogue;
 
     private bool enableInteraction = false;
 
@@ -47,7 +47,6 @@ public class InteractionScript : MonoBehaviour {
                 if(GameEventManager.InputContext == InputContextEnum.DEFAULT && DialogueManager.alreadyStarted && dialogue != null){
                     GameEventManager.InputContext = InputContextEnum.DIALOGUE;
                 }
-                Debug.Log(this.gameObject.name);
             }
         }
     }
@@ -93,7 +92,6 @@ public class InteractionScript : MonoBehaviour {
         if(isCurrentConversation) {
             dialogueFinished = true;
             isCurrentConversation = false;
-            Debug.Log("Dialogue Finished Detected!");
         }
     }
 }
