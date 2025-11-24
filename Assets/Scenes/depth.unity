@@ -1351,7 +1351,7 @@ MonoBehaviour:
   mazeDepth: 21
   startCell: {x: 0, y: 10}
   endCell: {x: 49, y: 10}
-  position: {x: 120, y: 0, z: 9.3}
+  position: {x: 80, y: 0, z: 9.9}
   noWalls: 70
 --- !u!4 &1403758934
 Transform:
