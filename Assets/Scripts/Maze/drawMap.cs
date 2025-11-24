@@ -15,6 +15,8 @@ public class drawMap : MonoBehaviour {
 
     private bool alreadyEnter = false;
 
+    [SerializeField] bool mazeDepth = false;
+
     void Start() {
         leftLine.SetActive(false);    
         rightLine.SetActive(false);    
@@ -27,22 +29,39 @@ public class drawMap : MonoBehaviour {
             if(other.gameObject.name == "Player") {
                 if (!alreadyEnter) {
                     alreadyEnter = true;
+                    if(!mazeDepth) {
+                        if (!leftWall.activeSelf) {
+                            leftLine.SetActive(true);
+                        }
 
-                    if (!leftWall.activeSelf) {
-                        leftLine.SetActive(true);
-                    }
+                        if (!rightWall.activeSelf) {
+                            rightLine.SetActive(true);
+                        }
 
-                    if (!rightWall.activeSelf) {
-                        rightLine.SetActive(true);
-                    }
+                        if (!frontWall.activeSelf) {
+                            frontLine.SetActive(true);
+                        }
 
-                    if (!frontWall.activeSelf) {
-                        frontLine.SetActive(true);
-                    }
+                        if (!backWall.activeSelf) {
+                            backLine.SetActive(true);
+                        }
+                    } else {
+                        if (leftWall.activeSelf) {
+                            leftLine.SetActive(true);
+                        }
 
-                    if (!backWall.activeSelf) {
-                        backLine.SetActive(true);
-                    }
+                        if (rightWall.activeSelf) {
+                            rightLine.SetActive(true);
+                        }
+
+                        if (frontWall.activeSelf) {
+                            frontLine.SetActive(true);
+                        }
+
+                        if (backWall.activeSelf) {
+                            backLine.SetActive(true);
+                        }
+                    }                    
                 }
             }
         }

@@ -36,7 +36,7 @@ public class MazeGenerator : MonoBehaviour {
 
         for(int i = 0; i < mazeWidth; i++) {
             for(int j = 0; j < mazeDepth; j++) {
-                Vector3 cellLocalPos = new Vector3(i * 4, 0, j * 4);
+                Vector3 cellLocalPos = new Vector3(i * cellUse.size.x, 0, j * cellUse.size.y);
                 
                 MazeCell newCell = Instantiate(cellUse, transform);
                 newCell.transform.localPosition = cellLocalPos;

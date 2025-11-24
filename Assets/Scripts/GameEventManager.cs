@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement; // Required for scene events
 
 public class GameEventManager : MonoBehaviour {
     public DialogueEvents dialogueEvents;
-
+    
     public static GameEventManager instance { get; private set; }
 
     public static InputContextEnum InputContext { get; set; } = InputContextEnum.DEFAULT;
