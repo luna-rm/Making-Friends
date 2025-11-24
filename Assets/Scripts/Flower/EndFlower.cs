@@ -54,6 +54,6 @@ public class EndFlower : MonoBehaviour {
 
         fadeGroup.alpha = 1f;
 
-        SceneManager.LoadScene("depth");
+        SceneManager.LoadScene("toDepth");
     }
 }

@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/startDied.unity
     guid: 3e6eff05130df9d4cbfe813eac02bab3
+  - enabled: 1
+    path: Assets/Scenes/toDepth.unity
+    guid: 9dc2e8ca583f7b542ba685f7c7717034
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
