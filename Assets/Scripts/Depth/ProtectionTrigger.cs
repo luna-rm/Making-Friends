@@ -5,6 +5,7 @@ public class ProtectionTrigger : MonoBehaviour {
         if(other != null) {
             if(other.gameObject.name == "Player") {
                 DepthManager.instance.inProtection = true;
+                DepthManager.instance.save = this.transform.position;
             }
         }
     }

@@ -70,6 +70,7 @@ public class Enviroment : MonoBehaviour
 
     private IEnumerator transitionToLight() {
         Debug.Log("L");
+        DepthManager.instance.startParticles = false;
 
         float elapsedTime = 0f;
 
@@ -92,7 +93,6 @@ public class Enviroment : MonoBehaviour
 
     private IEnumerator transitionToDark() {
         Debug.Log("D");
-
         DepthManager.instance.eyeOpen = false;
 
         float elapsedTime = 0f;
@@ -111,6 +111,7 @@ public class Enviroment : MonoBehaviour
 
         toDark = false;
         atCoroutine = StartCoroutine(transitionWait());
+        DepthManager.instance.startParticles = true;
     }
 
     // Call this to update fog at runtime
