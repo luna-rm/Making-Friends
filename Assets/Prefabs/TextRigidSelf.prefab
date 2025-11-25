@@ -203,6 +203,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3eb53d336eb529449a6fec39e49204ec, type: 3}
   - {fileID: 8300000, guid: 71bb7b0da0bafe84abb2b4ef39c59f4f, type: 3}
   - {fileID: 8300000, guid: 5e3dea0fe4922154ab27745d279c9ede, type: 3}
+  volume: 0.2
   isDialogue: 1
 --- !u!114 &1170232091696727855
 MonoBehaviour:

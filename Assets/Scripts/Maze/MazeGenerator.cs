@@ -49,7 +49,6 @@ public class MazeGenerator : MonoBehaviour {
         GenerateMaze(null, mazeGrid[startCell.x, startCell.y], startCell.x, startCell.y);
 
         mazeGrid[endCell.x, endCell.y].SetAsExit();
-        mazeGrid[endCell.x, endCell.y].ClearRightWall();
         mazeGrid[startCell.x, startCell.y].ClearLeftWall();
 
         disableMoreWalls();

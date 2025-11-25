@@ -9,6 +9,7 @@ public class FlowerMaze : MazeCell {
     [SerializeField] private GameObject backWall;
 
     [SerializeField] private GameObject floor;
+    [SerializeField] private GameObject exit;
 
     [SerializeField] private GameObject firefly;
     [SerializeField] private List<GameObject> plants = new List<GameObject>();
@@ -47,5 +48,12 @@ public class FlowerMaze : MazeCell {
 
     public override void ClearBackWall() {
         backWall.SetActive(false);
+    }
+
+    public override void SetAsExit() {
+        base.SetAsExit();
+
+        floor.SetActive(false);
+        exit.SetActive(true);
     }
 }

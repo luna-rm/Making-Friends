@@ -16,6 +16,7 @@ public class TextScript : MonoBehaviour {
 
     [SerializeField] private List<AudioClip> voice;
     private int voiceCount = 0;
+    [SerializeField] private float volume = 0.5f;
 
     public bool isDialogue = true;
 
@@ -137,7 +138,7 @@ public class TextScript : MonoBehaviour {
     }
 
     private void PlayVoice() {
-        SoundFXManager.instance.PlaySoundFXClip(voice[voiceCount], transform, 0.5f);
+        SoundFXManager.instance.PlaySoundFXClip(voice[voiceCount], transform, volume);
         voiceCount++;
         if(voiceCount >= voice.Count) { 
             voiceCount = 0;

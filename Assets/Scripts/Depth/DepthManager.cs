@@ -17,7 +17,7 @@ public class DepthManager : MonoBehaviour {
 
     [SerializeField] private CanvasGroup blackScreen;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject Camera;
 
     [SerializeField] private GameObject barrierObj;
     [SerializeField] private float speedBarrier = 0.5f;
@@ -37,7 +37,7 @@ public class DepthManager : MonoBehaviour {
 
     private void Start() {
         GameEventManager.InputContext = InputContextEnum.LOCKED;
-        camera.transform.Rotate(-90f, 0, 0);
+        Camera.transform.Rotate(-90f, 0, 0);
         StartCoroutine(initAnim());
     }
 
@@ -56,7 +56,7 @@ public class DepthManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);
 
         float elapsedTime = 0f;
-        Quaternion startRotation = camera.transform.rotation;
+        Quaternion startRotation = Camera.transform.rotation;
         Quaternion targetRotation = startRotation * Quaternion.Euler(90, 0f, 0);
 
         AnxietyScript.instance.anxiety = 0.1f;
@@ -64,7 +64,7 @@ public class DepthManager : MonoBehaviour {
 
         while (elapsedTime < 0.25f) {
             float t = elapsedTime / 0.25f;
-            camera.transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
+            Camera.transform.rotation = Quaternion.Lerp(startRotation, targetRotation, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;

@@ -131,7 +131,7 @@ public class AnxietyScript : MonoBehaviour {
 
         float elapsedTime = 0f;
 
-        StartCoroutine(textAppear((int) (valueTo * 10)));
+        StartCoroutine(textAppear((int) (valueTo * 7)));
 
         while (elapsedTime < 2f) {
             elapsedTime += Time.deltaTime;
@@ -154,6 +154,9 @@ public class AnxietyScript : MonoBehaviour {
 
     public IEnumerator textAppear(int howMany) {
         Debug.Log(howMany);
+        if(howMany < 1){
+            howMany = 1;
+        }
         for(int i = 0; i < howMany; i++) {
             if(anxiety > 0) {
                 awakeTextAppear();

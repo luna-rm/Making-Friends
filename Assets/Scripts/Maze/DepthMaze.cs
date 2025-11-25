@@ -101,4 +101,9 @@ public class DepthMaze : MazeCell {
             backP.gameObject.SetActive(false);
         }
     }
+
+    public override void SetAsExit() {
+        base.SetAsExit();
+        ClearRightWall();
+    }
 }

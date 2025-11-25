@@ -18,7 +18,7 @@ public class DiedFlower : MonoBehaviour {
 
     private void Update() {
         if (!anim) {
-            if(flower0Interaction.dialogueFinished) {
+            if(flower0Interaction.dialogueFinished || GameEventManager.instance.canOpenMap) {
                 anim = true;
                 StartCoroutine(anim0());
             }

@@ -28,8 +28,7 @@ public class MazeCell : MonoBehaviour {
 
     }
 
-    public virtual void SetAsExit()
-    {
+    public virtual void SetAsExit() {
         IsExit = true;
     }
 }

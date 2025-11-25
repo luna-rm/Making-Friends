@@ -8,6 +8,7 @@ public class FlowerGirlScript : MonoBehaviour {
     [SerializeField] GameObject maze;
 
     private bool anim0Start = false;
+    private bool anim2Start = false;
 
     [SerializeField] GameObject flower0;
     [SerializeField] GameObject flower1;
@@ -41,12 +42,18 @@ public class FlowerGirlScript : MonoBehaviour {
         if(!anim0Start) {
             if (flower0Text.GetText() == "Olha pra trás!!") {
                 StartCoroutine(startAnim0());
-                flower0Text.ResetPanel();
             }
 
             if(flower0Interaction.dialogueFinished || canStartAnim0) {
                 StartCoroutine(anim0());
                 anim0Start = true;
+            }
+        }
+
+        if(!anim2Start) {
+            if(flower1Interaction.dialogueFinished || GameEventManager.instance.canOpenMap) {
+                StartCoroutine(anim2());
+                anim2Start = true;
             }
         }
     }
@@ -110,14 +117,14 @@ public class FlowerGirlScript : MonoBehaviour {
         float elapsedTime = 0f;
 
         while (elapsedTime < 2f) {
-            float newY = Mathf.Lerp(-5f, 0.5f, (elapsedTime / 2f));
+            float newY = Mathf.Lerp(-5f, 0f, (elapsedTime / 2f));
             maze.transform.position = new Vector3(maze.transform.position.x, newY, maze.transform.position.z);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        maze.transform.position = new Vector3(maze.transform.position.x, 0.5f, maze.transform.position.z);
+        maze.transform.position = new Vector3(maze.transform.position.x, 0f, maze.transform.position.z);
 
         StartCoroutine(flower1Image.appear());
         yield return new WaitForSeconds(flower0Image.animTime);
@@ -128,4 +135,13 @@ public class FlowerGirlScript : MonoBehaviour {
 
         GameEventManager.InputContext = InputContextEnum.DEFAULT;
     }
+
+    private IEnumerator anim2() {
+        StartCoroutine(flower1Image.disappear());
+        yield return new WaitForSeconds(flower0Image.animTime + 0.2f);
+
+        flower1Text.enabled = false;
+        flower1.SetActive(false);
+    }
+
 }
