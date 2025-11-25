@@ -15,10 +15,9 @@ public class GameEventManager : MonoBehaviour {
     [SerializeField] CanvasGroup map;
     [SerializeField] private float defaultFadeDuration = 0.5f;
 
-    [SerializeField] private MazeGenerator maze;
-    [SerializeField] private Transform player;
-
     [SerializeField] private CanvasGroup fadeGroup;
+
+    [SerializeField] private string goToDeath = "waters";
     
     // Persistent Data
     public int DeathCount = 0; // Replaced 'haveDied' with an integer counter
@@ -108,7 +107,7 @@ public class GameEventManager : MonoBehaviour {
 
         fadeGroup.alpha = 1f;
 
-        SceneManager.LoadScene("waters");
+        SceneManager.LoadScene(goToDeath);
     }
 
     public void die() {

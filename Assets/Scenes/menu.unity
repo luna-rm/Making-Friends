@@ -517,6 +517,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anxiety: 0
   postProcessing: {fileID: 80138288}
+  valueTo: 0
+  msg: []
+  cameraTransform: {fileID: 0}
+  maxDistance: 7.5
+  textField: {fileID: 0}
+  textLines: []
 --- !u!114 &80138288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11333,7 +11339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1633374922759481588, guid: d65ff3214a6be4e4596c018a27c1ba73, type: 3}
       propertyPath: m_Volume
-      value: 0.04
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1633374922759481588, guid: d65ff3214a6be4e4596c018a27c1ba73, type: 3}
       propertyPath: m_Resource
@@ -11964,6 +11970,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d614c65986cc47a409ad336b81e9c99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canOpenMap: 0
+  map: {fileID: 0}
+  defaultFadeDuration: 0.5
+  maze: {fileID: 0}
+  player: {fileID: 0}
+  fadeGroup: {fileID: 0}
+  DeathCount: 0
 --- !u!1 &1161102531
 GameObject:
   m_ObjectHideFlags: 0

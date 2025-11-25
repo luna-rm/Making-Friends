@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/toDepth.unity
     guid: 9dc2e8ca583f7b542ba685f7c7717034
+  - enabled: 1
+    path: Assets/Scenes/depth.unity
+    guid: 466207f19534c1d458946243615d68fc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

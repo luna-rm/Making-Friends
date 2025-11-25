@@ -10,6 +10,8 @@ using UnityEngine.UIElements;
 
 public class AnxietyScript : MonoBehaviour {
 
+    public static AnxietyScript instance { get; private set; }
+
     [Range(0f, 1f)]
     public float anxiety = 0f;
 
@@ -31,6 +33,14 @@ public class AnxietyScript : MonoBehaviour {
     [SerializeField] private GameObject textField;
 
     public List<GameObject> textLines = new List<GameObject>();
+
+    [SerializeField] bool isDepth = false;
+
+    private void Awake() {
+        if(instance == null) {
+            instance = this;
+        } 
+    }
 
     void Start() {
         if (postProcessing.profile.TryGet(out UnityEngine.Rendering.Universal.Vignette vg)) {
@@ -89,10 +99,29 @@ public class AnxietyScript : MonoBehaviour {
         }
         
         if (anim) {
-            currentAnimCoroutine = StartCoroutine(addValueAnim(add));
+            if(add < 0.1f) {
+                currentAnimCoroutine = StartCoroutine(addLowValueAnim(add));
+            } else {
+                currentAnimCoroutine = StartCoroutine(addValueAnim(add));
+            }
         } else {
             anxiety += add;
         }
+    }
+    
+    public IEnumerator addLowValueAnim(float add) {
+        valueTo = anxiety + add;
+        Debug.Log((float)(System.Math.Truncate(valueTo * 1000) / 1000));
+        anxiety += 0.25f;
+        if(anxiety >= 1f) {
+            anxiety = 0.99f;
+        }
+        if((float)(System.Math.Truncate(valueTo * 1000) / 1000) % 0.01f == 0){
+            StartCoroutine(textAppear(1));
+        }
+
+        yield return new WaitForSeconds(DepthManager.instance.timeAnxiety);
+        anxiety = valueTo;
     }
 
     public IEnumerator addValueAnim(float add) {
@@ -102,7 +131,7 @@ public class AnxietyScript : MonoBehaviour {
 
         float elapsedTime = 0f;
 
-        StartCoroutine(textAppear());
+        StartCoroutine(textAppear((int) (valueTo * 10)));
 
         while (elapsedTime < 2f) {
             elapsedTime += Time.deltaTime;
@@ -123,8 +152,7 @@ public class AnxietyScript : MonoBehaviour {
         currentAnimCoroutine = null;        
     }
 
-    private IEnumerator textAppear() {
-        int howMany = (int) (valueTo * 10);
+    public IEnumerator textAppear(int howMany) {
         Debug.Log(howMany);
         for(int i = 0; i < howMany; i++) {
             if(anxiety > 0) {
@@ -152,6 +180,11 @@ public class AnxietyScript : MonoBehaviour {
         }
 
         spawnPosition.y += (UnityEngine.Random.value) * 3f + 1f;
+
+        if (isDepth) {
+            spawnPosition.y += (UnityEngine.Random.value - 0.5f) * 4f;
+        }
+
         spawnPosition.x += (UnityEngine.Random.value - 0.5f) * 7f;
         spawnPosition.z += (UnityEngine.Random.value - 0.5f) * 7f;       
 

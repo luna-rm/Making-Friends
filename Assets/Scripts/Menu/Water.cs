@@ -17,7 +17,7 @@ public class Water : MonoBehaviour {
             if(collision.gameObject.name == "Player") {
                 if(cd) {
                     if(collision.gameObject.GetComponent<Player>().moveForward > 0 || collision.gameObject.GetComponent<Player>().moveHorizontal > 0) {
-                        SoundFXManager.instance.PlaySoundFXClipPitch(waterSound[(int)Random.Range(0, waterSound.Count)], collision.gameObject.transform, 0.1f,  new Vector2(0.7f, 1));
+                        SoundFXManager.instance.PlaySoundFXClipPitch(waterSound[(int)Random.Range(0, waterSound.Count)], collision.gameObject.transform, 0.2f,  new Vector2(0.7f, 1));
                         cd = false;
                         StartCoroutine(cdTimer());
                     }

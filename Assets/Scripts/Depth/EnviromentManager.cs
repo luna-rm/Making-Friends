@@ -71,6 +71,8 @@ public class Enviroment : MonoBehaviour
     private IEnumerator transitionToLight() {
         Debug.Log("L");
         DepthManager.instance.startParticles = false;
+        DepthManager.instance.SpawnEyes();
+        DepthManager.instance.startEyeOpen = true;
 
         float elapsedTime = 0f;
 
@@ -94,6 +96,7 @@ public class Enviroment : MonoBehaviour
     private IEnumerator transitionToDark() {
         Debug.Log("D");
         DepthManager.instance.eyeOpen = false;
+        DepthManager.instance.startEyeOpen = false;
 
         float elapsedTime = 0f;
 

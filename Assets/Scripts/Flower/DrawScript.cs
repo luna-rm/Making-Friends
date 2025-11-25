@@ -11,6 +11,7 @@ public class DrawScript : MonoBehaviour
 
     private void Update() {
         if (go) {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
             float distance = Vector3.Distance(transform.position, target);
 
             if (distance > stoppingDistance) {

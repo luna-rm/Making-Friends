@@ -6,6 +6,7 @@ public class MenuEye : MonoBehaviour {
 
     [SerializeField] private CanvasGroup eye;
     [SerializeField] private CanvasGroup background;
+    [SerializeField] private AudioSource sound;
     
     private bool anim = false;
 
@@ -15,6 +16,7 @@ public class MenuEye : MonoBehaviour {
                 eye.alpha = 1;
                 //add animation
                 anim = true;
+                sound.volume = 0.222f;
                 StartCoroutine(appear());
             }
         }
@@ -34,13 +36,14 @@ public class MenuEye : MonoBehaviour {
 
         while (elapsedTime < 1) {
             float newAlpha = Mathf.Lerp(0f, 1f, (elapsedTime / 1));
+            float newVolume = Mathf.Lerp(0.222f, 0.222f, (elapsedTime / 1));
             background.alpha = newAlpha;
+            sound.volume = newVolume;
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        background.alpha = 1f;
 
         SceneManager.LoadScene("depth");
     }
