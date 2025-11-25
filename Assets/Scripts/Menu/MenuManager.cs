@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour {
 
     [SerializeField] private float defaultFadeDuration = 2.0f;
 
-    private void Awake() {
+    private void Start() {
         GameEventManager.InputContext = InputContextEnum.LOCKED;
     }
 

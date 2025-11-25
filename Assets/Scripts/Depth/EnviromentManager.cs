@@ -52,7 +52,7 @@ public class Enviroment : MonoBehaviour
     }
 
     private IEnumerator init() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         atCoroutine = StartCoroutine(transitionWait());
     }
 

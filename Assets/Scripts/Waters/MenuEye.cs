@@ -16,7 +16,7 @@ public class MenuEye : MonoBehaviour {
                 eye.alpha = 1;
                 //add animation
                 anim = true;
-                sound.volume = 0.222f;
+                sound.volume = 0.666f;
                 StartCoroutine(appear());
             }
         }
@@ -36,7 +36,7 @@ public class MenuEye : MonoBehaviour {
 
         while (elapsedTime < 1) {
             float newAlpha = Mathf.Lerp(0f, 1f, (elapsedTime / 1));
-            float newVolume = Mathf.Lerp(0.222f, 0.222f, (elapsedTime / 1));
+            float newVolume = Mathf.Lerp(0.666f, 0.222f, (elapsedTime / 1));
             background.alpha = newAlpha;
             sound.volume = newVolume;
 
