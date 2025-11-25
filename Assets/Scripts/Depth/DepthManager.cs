@@ -123,9 +123,9 @@ public class DepthManager : MonoBehaviour {
     {
         // Calculate a random point inside the box defined by spawnAreaSize
         // Random.Range(-0.5f, 0.5f) centers the randomness around the object's position
-        float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
+        float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2) + player.transform.position.x;
         float y = Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2) + 20f;
-        float z = Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2);
+        float z = Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2) + player.transform.position.z;
 
         Vector3 offset = new Vector3(x, y, z);
 

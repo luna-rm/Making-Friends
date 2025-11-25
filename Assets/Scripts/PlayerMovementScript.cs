@@ -11,6 +11,10 @@ public class Player : MonoBehaviour {
     public float moveHorizontal;
     public float moveForward;
 
+    public float sprintMultiplier = 1.5f;
+    public float slowMultiplier = 0.5f;
+    private float currentSpeedMultiplier = 1f;
+
     public float jumpForce = 10f;
     public float fallMultiplier = 2.5f; 
     public float ascendMultiplier = 2f; 
@@ -75,6 +79,17 @@ public class Player : MonoBehaviour {
             moveHorizontal = Input.GetAxisRaw("Horizontal");
             moveForward = Input.GetAxisRaw("Vertical");
 
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                currentSpeedMultiplier = sprintMultiplier;
+                GameEventManager.WalkingContext = WalkingContextEnum.SPRINTING;
+            } else if (Input.GetKey(KeyCode.LeftControl)) {
+                currentSpeedMultiplier = slowMultiplier;
+                GameEventManager.WalkingContext = WalkingContextEnum.SLOW;
+            } else {
+                currentSpeedMultiplier = 1f;
+                GameEventManager.WalkingContext = WalkingContextEnum.WALKING;
+            }
+
             RotateCamera();
 
             if (Input.GetButtonDown("Jump") && isGrounded) {
@@ -98,7 +113,7 @@ public class Player : MonoBehaviour {
 
     void MovePlayer() {
         Vector3 movement = (transform.right * moveHorizontal + transform.forward * moveForward).normalized;
-        Vector3 targetVelocity = movement * MoveSpeed;
+        Vector3 targetVelocity = movement * MoveSpeed * currentSpeedMultiplier;
 
         Vector3 velocity = rb.linearVelocity;
         velocity.x = targetVelocity.x;

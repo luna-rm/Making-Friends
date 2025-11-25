@@ -111,12 +111,12 @@ public class AnxietyScript : MonoBehaviour {
     
     public IEnumerator addLowValueAnim(float add) {
         valueTo = anxiety + add;
-        Debug.Log((float)(System.Math.Truncate(valueTo * 1000) / 1000));
+        Debug.Log(valueTo);
         anxiety += 0.25f;
         if(anxiety >= 1f) {
             anxiety = 0.99f;
         }
-        if((float)(System.Math.Truncate(valueTo * 1000) / 1000) % 0.01f == 0){
+        if(Mathf.RoundToInt(valueTo * 1000) % 10 == 0){
             StartCoroutine(textAppear(1));
         }
 

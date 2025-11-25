@@ -29,6 +29,12 @@ public class Water : MonoBehaviour {
     private System.Collections.IEnumerator cdTimer() {
         float elapsedTime = 0f;
 
+        float auxTimer = timer;
+
+        if(GameEventManager.WalkingContext == WalkingContextEnum.SPRINTING) {
+            auxTimer = timer / 1.5f;
+        }
+
         while (elapsedTime < timer) {
             elapsedTime += Time.deltaTime;
             yield return null;

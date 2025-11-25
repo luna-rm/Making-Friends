@@ -8,6 +8,7 @@ public class GameEventManager : MonoBehaviour {
     public static GameEventManager instance { get; private set; }
 
     public static InputContextEnum InputContext { get; set; } = InputContextEnum.DEFAULT;
+    public static WalkingContextEnum WalkingContext { get; set; } = WalkingContextEnum.WALKING;
 
     // Map variables
     public Coroutine MapCoroutine = null;
